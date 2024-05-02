@@ -2,12 +2,13 @@ import { useContext } from "react";
 import checkeout from "../assets/images/checkout/checkout.png"
 import { AuthContext } from "../Context/Context";
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CheckOut = () => {
 
     let {user} = useContext(AuthContext)
     let servises = useLoaderData()
-    let {price, img} = servises
+    let {price, img, _id} = servises
     let handleCheckOut = (e) => {
         e.preventDefault()
         let from = e.target
@@ -20,12 +21,13 @@ const CheckOut = () => {
             customerName: name,
             customerNumber: number,
             img,
+            serviceId : _id,
             date,
             ServicesPrice: price,
             customerEmail: email
         }
         console.log(userInfo)
-        fetch("http://localhost:3000/order",{
+        fetch("http://localhost:5000/orders",{
             method: "POST",
             headers: {"content-type" : "application/json"},
             body: JSON.stringify(userInfo)
@@ -33,6 +35,15 @@ const CheckOut = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            if(data.acknowledged === true){
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Your order is confirmed',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+                  from.reset()
+            }
         })
     }
     return (

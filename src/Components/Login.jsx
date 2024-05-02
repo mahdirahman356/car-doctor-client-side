@@ -5,6 +5,7 @@ import { AuthContext } from '../Context/Context';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 const Login = () => {
     let { loginAccount, continueWithGoogle } = useContext(AuthContext)
     let handleLogin = (e) => {
@@ -16,12 +17,18 @@ const Login = () => {
         loginAccount(email, password)
             .then(result => {
                 console.log(result.user)
+                let user = {email}
                 Swal.fire({
                     title: 'Success',
                     text: 'User has successfully logged in',
                     icon: 'success',
                     confirmButtonText: 'Cool'
                   })
+             axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
+             .then(data => {
+                console.log(data.data)
+             })
+
             })
             .catch(error => {
                 console.log(error.message)

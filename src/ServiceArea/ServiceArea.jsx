@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import ServiceCard from "./ServiceCard";
+import axios from "axios";
 
 const ServiceArea = () => {
     
     let [service, setService] = useState([])
      
     useEffect(() => {
-    fetch("http://localhost:3000/services")
-    .then(res => res.json())
-    .then(data => {
-        setService(data)
+    axios.get("http://localhost:5000/services", {withCredentials:true})
+    .then(res => {
+        setService(res.data)
     })
     },[])
 

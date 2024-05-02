@@ -1,3 +1,4 @@
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/order",
-        element:<MyOrder></MyOrder>
+        element:<PrivetRoute><MyOrder></MyOrder></PrivetRoute>
       },
       {
         path:"/login",
@@ -37,12 +38,12 @@ const router = createBrowserRouter([
       },
       {
         path: "serviceDetails/:id",
-        loader: ({params})=> fetch(`http://localhost:3000/services/${params.id}`),
+        loader: ({params})=> fetch(`http://localhost:5000/services/${params.id}`),
         element:<PrivetRoute><ServiceDetails></ServiceDetails></PrivetRoute>
       },
       {
         path:"/checkOut/:id",
-        loader: ({params})=> fetch(`http://localhost:3000/services/${params.id}`),
+        loader: ({params})=> fetch(`http://localhost:5000/services/${params.id}`),
         element:<PrivetRoute><CheckOut></CheckOut></PrivetRoute>
       }
     ]

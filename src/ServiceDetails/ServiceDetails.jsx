@@ -9,7 +9,7 @@ const ServiceDetails = () => {
 
     let [service, setService] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/services")
+        fetch("http://localhost:5000/services")
         .then(res => res.json())
         .then(data => {
             setService(data)
