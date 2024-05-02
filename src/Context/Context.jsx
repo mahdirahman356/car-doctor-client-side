@@ -7,24 +7,30 @@ import { GoogleAuthProvider } from "firebase/auth";
 export const AuthContext = createContext()
 const Context = ({children}) => {
     let [user, setUser] = useState()
+    let [loading, setLoading] = useState(true)
     const googlrProvider = new GoogleAuthProvider();
     let creatAccount = (email, password) => {
+        setLoading(true) 
        return createUserWithEmailAndPassword(auth, email, password)
     }
     let continueWithGoogle = () => {
-         signInWithPopup(auth, googlrProvider)
+        setLoading(true) 
+        return signInWithPopup(auth, googlrProvider)
     }
 
     let loginAccount = (email, password) => {
+        setLoading(true) 
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     let signOutAccount = () => {
+        setLoading(true) 
         return signOut(auth)
     }
 
     useEffect(() => {
      let unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setLoading(false) 
          console.log( "onAuthStateChanged",currentUser)
          setUser(currentUser)
      })
@@ -39,7 +45,8 @@ const Context = ({children}) => {
     loginAccount, 
     continueWithGoogle, 
     user,
-    signOutAccount
+    signOutAccount,
+    loading
    }
     return (
         <AuthContext.Provider value={authInfo}>
