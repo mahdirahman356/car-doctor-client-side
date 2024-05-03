@@ -7,7 +7,7 @@ const ServiceArea = () => {
     let [service, setService] = useState([])
      
     useEffect(() => {
-    axios.get("http://localhost:5000/services", {withCredentials:true})
+    axios.get("http://localhost:5000/services")
     .then(res => {
         setService(res.data)
     })
