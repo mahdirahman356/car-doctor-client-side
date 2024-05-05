@@ -7,13 +7,14 @@ import axios from "axios";
 
 const MyOrder = () => {
     let [order, setOrder] = useState([])
-    let {user} = useContext(AuthContext)
-    let url = `http://localhost:5000/orders?email=${user.email}&sort=1`
+    let { user} = useContext(AuthContext)
+    let url = `http://localhost:5000/orders?email=${user.email}`
+    
     useEffect(() => {
-        axios.get(url, {withCredentials:true})
-        .then(res => {
-            setOrder(res.data)
-        })
+        axios.get(url, { withCredentials: true })
+            .then(res => {
+                setOrder(res.data)
+            })
     }, [url])
 
     let handleDelete = (id) => {
@@ -40,9 +41,9 @@ const MyOrder = () => {
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
                                 icon: "success"
-                              });
-                           let deleleOrder = order.filter(order => order._id !== id)
-                           setOrder(deleleOrder)
+                            });
+                            let deleleOrder = order.filter(order => order._id !== id)
+                            setOrder(deleleOrder)
                         }
                     })
             }
@@ -94,7 +95,7 @@ const MyOrder = () => {
                                 </td>
                                 <td>{order.ServicesPrice}$</td>
                                 <th>
-                                  <Link to={`/ServiceDetails/${order.serviceId}`}><button className="btn btn-ghost btn-xs">details</button></Link>  
+                                    <Link to={`/ServiceDetails/${order.serviceId}`}><button className="btn btn-ghost btn-xs">details</button></Link>
                                 </th>
                             </tr>)}
                         </tbody>

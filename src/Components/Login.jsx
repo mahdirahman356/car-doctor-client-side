@@ -17,6 +17,7 @@ const Login = () => {
         loginAccount(email, password)
             .then(result => {
                 console.log(result.user)
+                from.reset()
                 let user = {email}
                 Swal.fire({
                     title: 'Success',

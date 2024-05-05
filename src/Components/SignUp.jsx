@@ -26,6 +26,7 @@ const SignUp = () => {
         creatAccount(email, passward)
             .then(result => {
                 console.log(result.user)
+                from.reset()
                 Swal.fire({
                     title: 'Success',
                     text: 'Your account created successfully',
