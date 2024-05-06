@@ -1,16 +1,31 @@
 import { useContext, useEffect, useState } from "react";
 import ordersImg from "../assets/images/order/order.png"
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/Context";
 import axios from "axios";
 
 const MyOrder = () => {
     let [order, setOrder] = useState([])
-    let { user} = useContext(AuthContext)
-    let url = `http://localhost:5000/orders?email=${user.email}`
+    let navigate = useNavigate()
+    let { user, signOutAccount} = useContext(AuthContext)
+    let url = `https://car-doctors-sarver-side.vercel.app/orders?email=${user.email}`
     
     useEffect(() => {
+        axios.interceptors.response.use(res => {
+            return res
+        },error => {
+            console.log(error.response)
+            if(error.response.status){
+                signOutAccount()
+                .then(() => {
+                  navigate("/login")
+                })
+                .catch(error => {
+                  console.log(error.message)
+                })
+            }
+        })
         axios.get(url, { withCredentials: true })
             .then(res => {
                 setOrder(res.data)
@@ -30,7 +45,7 @@ const MyOrder = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/orders/${id}`, {
+                fetch(`https://car-doctors-sarver-side.vercel.app/orders/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

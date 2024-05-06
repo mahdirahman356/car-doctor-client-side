@@ -38,12 +38,12 @@ const router = createBrowserRouter([
       },
       {
         path: "serviceDetails/:id",
-        loader: ({params})=> fetch(`http://localhost:5000/services/${params.id}`),
+        loader: ({params})=> fetch(`https://car-doctors-sarver-side.vercel.app/services/${params.id}`),
         element:<PrivetRoute><ServiceDetails></ServiceDetails></PrivetRoute>
       },
       {
         path:"/checkOut/:id",
-        loader: ({params})=> fetch(`http://localhost:5000/services/${params.id}`),
+        loader: ({params})=> fetch(`https://car-doctors-sarver-side.vercel.app/services/${params.id}`),
         element:<PrivetRoute><CheckOut></CheckOut></PrivetRoute>
       }
     ]

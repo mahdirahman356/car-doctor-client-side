@@ -37,13 +37,13 @@ const Context = ({children}) => {
          let userEmail = currentUser?.email || user.email
          let loggedUser = {email : userEmail}
          if(currentUser){
-            axios.post("http://localhost:5000/jwt", loggedUser, {withCredentials: true})
+            axios.post("https://car-doctors-sarver-side.vercel.app/jwt", loggedUser, {withCredentials: true})
             .then(res => {
                 console.log(res.data)
             })
          }
          else{
-             axios.post('http://localhost:5000/signout', loggedUser, {withCredentials:true})
+             axios.post('https://car-doctors-sarver-side.vercel.app/signout', loggedUser, {withCredentials:true})
              .then(res => {
                 console.log(res.data)
              })

@@ -27,7 +27,7 @@ const CheckOut = () => {
             customerEmail: email
         }
         console.log(userInfo)
-        fetch("http://localhost:5000/orders",{
+        fetch("https://car-doctors-sarver-side.vercel.app/orders",{
             method: "POST",
             headers: {"content-type" : "application/json"},
             body: JSON.stringify(userInfo)
